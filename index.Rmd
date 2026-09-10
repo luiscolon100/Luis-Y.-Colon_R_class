@@ -33,7 +33,7 @@ body {
 # Sobre Mi 
 
 
-<img src="coqui_churi1.jpg" width="280" height="230" style="float:left; margin:0 20px 10px 0;"/>  
+<img src="coqui_churi1_.jpg" width="280" height="230" style="float:left; margin:0 20px 10px 0;"/>  
 
 
 ### __Me llamo Luis Y. Colón Dávila:__ 
