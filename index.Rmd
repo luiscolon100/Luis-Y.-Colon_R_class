@@ -29,7 +29,6 @@ body {
 
 
 
-
 # Sobre Mi 
 
 
@@ -44,4 +43,12 @@ Estoy interesado en seguir una carrera de investigacion por lo que mis metas son
 Entre mis intereses de investigacion me atrae el estudio de comportamiento y bioacustica al igual que la conservacion. <br> 
 Actualmente mis preguntas estan dirigidas hacia la herpetologia, especificamente las serpientes. sin embargo estoy interesado en tener experiencia estudiando distintos grupos de animales fuera de los anfibios y reptiles.
 <br> <br> <br> <br>
+
+
+
+## R tutorials
+
+[assingment 1](Rtutorials/Rtutorial1.html)
+
+
 

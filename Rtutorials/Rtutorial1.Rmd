@@ -1,0 +1,8 @@
+---
+title: "tutorial"
+author: "Luis Yasiel Colón Dávila"
+date: "2026-09-17"
+output: html_document
+---
+
+## hi
