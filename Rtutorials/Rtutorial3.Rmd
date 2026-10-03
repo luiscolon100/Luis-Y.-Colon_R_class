@@ -1,0 +1,106 @@
+---
+title: "Rtutorial 3"
+author: "Luis Yasiel Colón Dávila" 
+date: "`r format(Sys.time(), '%Y-%b-%d, %I:%M %p')`"
+output: 
+  prettydoc::html_pretty: 
+  theme: cayman
+  highlight: github
+---
+
+```{css, echo=FALSE}
+.page-header {
+  background-image: none !important;
+  background-color: #719052 !important;
+}
+body {
+  background-color: #E1EFC2 !important;
+}
+```
+
+
+
+
+```{r}
+library(ggplot2)
+
+```
+
+```{r}
+data("trees")
+head(trees)
+
+```
+
+## Q1. Cree un histograma que muestre la distribución de Girth.
+
+```{R}
+ggplot(data = trees) +
+  geom_histogram(
+    mapping = aes(Girth)) +
+  labs(title= "Tree Girth Distribution") +
+  theme_bw() +
+  theme(
+    plot.title = element_text(size = 18, face = "bold", hjust = 0.5),
+    axis.title.x = element_text(size = 14, face = "bold"),
+    axis.title.y = element_text(size = 14, face = "bold"),
+    axis.text.x = element_text(size = 12),
+    axis.text.y = element_text(size = 12)
+  )
+
+```
+
+
+
+## Q2. Cree un histograma que muestre la distribución de Volume.
+
+```{R}
+ggplot(data = trees) +
+  geom_histogram(
+    mapping = aes(Volume)) +
+  labs(title= "Tree Volume Distribution") +
+  theme_bw() +
+  theme(
+    plot.title = element_text(size = 18, face = "bold", hjust = 0.5),
+    axis.title.x = element_text(size = 14, face = "bold"),
+    axis.title.y = element_text(size = 14, face = "bold"),
+    axis.text.x = element_text(size = 12),
+    axis.text.y = element_text(size = 12)
+  )
+
+```
+
+
+## Q3. Cree un gráfico de dispersión que muestre la relación entre Girth y Volume.
+
+```{R}
+ggplot(data = trees) +
+  geom_point(
+    mapping = aes(Volume, Girth)) +
+  labs(title= "Tree Girth in relation to it's Volume") +
+  theme_bw() +
+  theme(
+    plot.title = element_text(size = 18, face = "bold", hjust = 0.5),
+    axis.title.x = element_text(size = 14, face = "bold"),
+    axis.title.y = element_text(size = 14, face = "bold"),
+    axis.text.x = element_text(size = 12),
+    axis.text.y = element_text(size = 12)
+  ) 
+
+```
+
+
+
+## Q4. Utilice la prueba de Shapiro–Wilk para evaluar si Volume tiene una distribución normal. Reporte el valor de p e indique si los datos tienen una distribución normal.
+```{R}
+shapiro.test(trees$Volume)
+```
+**El p-value tiene un valor < 0.05 por lo que podemos concluir que no tiene una distribucion normal.**
+<br> 
+
+## Q5. Repita la prueba de Shapiro–Wilk para Girth. Reporte el valor de p e indique si los datos tienen una distribución normal.
+```{R}
+shapiro.test(trees$Girth)
+```
+**El p-value tiene un valor > 0.05 por lo que podemos concluir que si tiene una distribucion normal.**
+
