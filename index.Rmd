@@ -52,6 +52,8 @@ Actualmente mis preguntas estan dirigidas hacia la herpetologia, especificamente
 
 [assingment 2](Rtutorials/Rtutorial2.html)
 
-[assingment 3](Rtutorials/Rtutorial3.html)
+[assingment 3](
+
+[Examen I](Rtutorials/Examen1.html)
 
 
