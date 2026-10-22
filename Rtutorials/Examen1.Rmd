@@ -1,0 +1,145 @@
+--- 
+title: "Examen I"
+author: "Luis Yasiel Colón Dávila" 
+date: "`r format(Sys.time(), '%Y-%b-%d, %I:%M %p')`"
+output: 
+  prettydoc::html_pretty: 
+  theme: cayman
+  highlight: github
+---
+
+```{css, echo=FALSE}
+.page-header {
+  background-image: none !important;
+  background-color: #719052 !important;
+}
+body {
+  background-color: #E1EFC2 !important;
+}
+```
+
+
+# Examen I
+```{r}
+# install.packages("tidyverse") 
+# install.packages("aod")
+library(tidyverse)
+library(dplyr)
+library(aod)
+library(ggplot2)
+```
+
+```{r}
+msleep <- glimpse(msleep)
+storms <- storms
+lizards <- lizards
+
+head(msleep)
+head(storms)
+head(lizards)
+```
+
+
+## 1. Use filter() to subset msleep to only animals who are awake for at least 12 hours of the day.
+Usa filter() para seleccionar del dataset msleep solo los animales que están despiertos al menos 12 horas al día.
+Hint: “At least” like saying “greater than or equal to,” i.e. >=
+Sugerencia: “Al menos” significa mayor o igual a (>=).
+
+```{r}
+msleep %>% 
+  filter(awake >= 12)
+
+
+```
+
+## 2. Use mutate() to create a new column called percent_day_awake that gives the percentage of the day that each species spends awake. Use select() with everything() at the end to verify your calculation.
+Usa mutate() para crear una nueva columna llamada percent_day_awake que muestre el porcentaje del día que cada especie permanece despierta. Usa select() con everything() al final para comprobar que tus cálculos son correctos.
+Hint: A day has 24 hours. The column awake indicates the average hours a species is awake per day. Calculate the percentage with (col / 24) * 100.
+Sugerencia: Un día tiene 24 horas. La columna awake indica cuántas horas al día, en promedio, está despierta cada especie. Calcula el porcentaje con (col / 24) * 100.
+
+```{r}
+percent_day_awake <- msleep %>%
+  mutate(percent_day_awake = (awake / 24) * 100) %>%
+  select(percent_day_awake, everything())
+
+percent_day_awake
+
+
+```
+
+
+## 3. Use group_by() and summarise() to calculate the number of storms per year.
+Agrupa los datos por año y calcula el número de tormentas que ocurrieron cada año.
+Hint group_by(col) groups the rows by time, and summarise(num_storms = n()) counts how many rows (storms) there are per year.
+Sugerencia: group_by(col) agrupa las filas por tiempo, y summarise(num_storms = n()) cuenta cuántas filas (tormentas) hay por año.
+```{r}
+storms %>% 
+  group_by(year) %>%
+  summarise(num_storms = n()
+            ) %>% 
+  arrange(desc(num_storms))
+
+
+
+```
+
+
+## 4. Use filter() to subset storms to only storms with wind speeds greater than 50 knots, then use arrange() to sort by wind descending.
+Filtra el dataset para quedarte solo con tormentas que tengan velocidad de viento mayor a 50 nudos, y luego ordénalas de mayor a menor velocidad de viento.
+Hint Use filter(col > 50) to select strong storms, and arrange(desc(col)) to sort the results from highest to lowest.
+Sugerencia: Usa filter(col > 50) para seleccionar las tormentas fuertes, y arrange(desc(col)) para ordenar los resultados de mayor a menor.
+```{r}
+
+winds_over_50 <- storms %>%
+  filter(wind > 50) 
+
+winds_over_50 %>%
+  arrange(desc(winds_over_50))
+  
+
+
+```
+
+
+## 5. Determine which Site and Diameter combination has the highest total grahami.
+Determina cuál combinación de Sitio y Diámetro tiene el total de grahami más alto.
+Hint: group_by(col1, col2) %>% summarise(new_var = sum(var)) %>% arrange(desc(new_var))
+Sugerencia: Usa group_by(col1, col2) %>% summarise(new_var = sum(var)) %>% arrange(desc(new_var))
+```{r}
+
+lizards %>% 
+  group_by(Site, Diameter) %>%
+  summarise(new_var = sum(opalinus)
+            ) %>% 
+  arrange(desc(new_var))
+
+
+
+```
+
+
+
+
+
+## 6. Create a boxplot showing the distribution of opalinus counts under different light conditions (Sun vs. Shade) using ggplot2.
+Crea un boxplot que muestre la distribución del número de opalinus bajo diferentes condiciones de luz (Sun vs. Shade) utilizando ggplot2.
+Hint: Use ggplot(), aes(), and geom_boxplot().
+Sugerencia: Usa ggplot(), aes() y geom_boxplot()
+
+```{r}
+ggplot(data = lizards) +
+  geom_boxplot(
+    mapping = aes(Site, opalinus)) +
+  labs(title= "Opalinus distribution in relation to light condition") +
+  theme_bw() +
+  theme(
+    plot.title = element_text(size = 18, face = "bold", hjust = 0.5),
+    axis.title.x = element_text(size = 14, face = "bold"),
+    axis.title.y = element_text(size = 14, face = "bold"),
+    axis.text.x = element_text(size = 12),
+    axis.text.y = element_text(size = 12)
+  ) 
+
+```
+
+
