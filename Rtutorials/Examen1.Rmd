@@ -62,6 +62,7 @@ percent_day_awake <- msleep %>%
   mutate(percent_day_awake = (awake / 24) * 100) %>%
   select(percent_day_awake, everything())
 
+
 percent_day_awake
 
 
