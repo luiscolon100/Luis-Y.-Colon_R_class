@@ -1,0 +1,99 @@
+--- 
+title: "RTutorial 4"
+author: "Luis Yasiel Colón Dávila" 
+date: "`r format(Sys.time(), '%Y-%b-%d, %I:%M %p')`"
+output: 
+  prettydoc::html_pretty: 
+  theme: cayman
+  highlight: github
+---
+
+```{css, echo=FALSE}
+.page-header {
+  background-image: none !important;
+  background-color: #719052 !important;
+}
+body {
+  background-color: #E1EFC2 !important;
+}
+```
+
+
+
+```{r}
+library(tidyverse)
+library(lessR)
+library(readxl)
+library(BSDA)
+
+butterflies <- read_excel("butterflies_pesticides.xlsx")
+head(butterflies)
+
+```
+
+## Q1. Normality test / Prueba de normalidad (10pts)
+
+```{r}
+shapiro.test(butterflies$`Wing Length`[butterflies$Group == "group1"])
+shapiro.test(butterflies$`Wing Length`[butterflies$Group == "group2"])
+
+```
+
+Como ambos grupos tuvieron un p-value > 0.005, no tenemos suficiente evidencia para rechazar la normalidad de los datos.
+
+
+## Q2. Equality of variances test / Prueba de igualdad de varianzas (10pts)
+
+```{r}
+var.test(butterflies$`Wing Length`[butterflies$Group == "group1"],
+         butterflies$`Wing Length`[butterflies$Group == "group2"])
+
+```
+Como el P-value > 0.05, tenemos suficiente evidencia para rechazar que la varianza de la longitud de alas sea igual entre ambos grupos.
+
+## Q3. Statistical test / Prueba estadística (20pts)
+
+```{r}
+t.test(x = butterflies$`Wing Length`[butterflies$Group == "group1"],
+       y = butterflies$`Wing Length`[butterflies$Group == "group2"],
+       mu = 0,
+       paired = FALSE,
+       var.equal = FALSE,
+       alternative = "two.sided")
+
+```
+Se utilizo la prueba de welch de dos colas.
+Esta prueba demostro una diferencia significativa en la longitud media de las alas donde las mariposas afectadas por pesticida tendieron a tener alas mas cortas.
+
+
+## Q4. ggplot (20pts)
+
+```{r}
+ggplot(data = butterflies) +
+  geom_boxplot(
+    mapping = aes(x = Group, y = `Wing Length`)) +
+  labs(title= "butterfly wingspand") +
+  theme_bw() +
+  theme(
+    plot.title = element_text(size = 18, face = "bold", hjust = 0.5),
+    axis.title.x = element_text(size = 14, face = "bold"),
+    axis.title.y = element_text(size = 14, face = "bold"),
+    axis.text.x = element_text(size = 12),
+    axis.text.y = element_text(size = 12)
+  ) 
+
+```
+
+
+
+## Q5. Summary paragraph / Párrafo de resumen (40pts) 
+- Write one concise paragraph summarizing your research objective, methods, statistical results, and interpretation of the findings, including whether the observed difference is statistically significant and biologically meaningful.
+- Escriba un párrafo conciso que resuma el objetivo de la investigación, los métodos utilizados, los resultados estadísticos y la interpretación de los hallazgos, incluyendo si la diferencia observada es estadísticamente significativa y tiene relevancia biológica.
+
+
+Probamos a ver si la exposicion de pesticidas durante la etapa larval afecta el tamaño de las alas en mariposas. Se trabajo con 80 mariposas, 40 del grupo control y 40 del grupo expuesto a el pesticida. Hubo normalidad en ambos grupos (Shapiro-Wilk p >0.05), pero no tuvimos varianzas iguales (p = 0.0055), por lo que se utilizo la prueba t de Welch de dos colas para comparar los grupos. al final se encontro diferencia significativa entre el largo de las alas entre ambos grupos. Las mariposas expuestas a pesticidas tendieron a tener alas mas cortas que las del grupo control. Esto pudiese tener un efecto en la mobilidad de la mariposa haciendo que sea mas dificil dispersarse y conseguir alimento.
+
+
+
+
+
